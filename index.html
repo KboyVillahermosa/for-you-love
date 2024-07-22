@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HI CRUSH</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Modal styles */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+        
+        /* Modal content */
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto; /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; /* Could be more or less, depending on screen size */
+            max-width: 600px; /* Max width */
+            text-align: center; /* Center the content */
+        }
+
+        /* Close button */
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Image */
+        .final-image {
+            display: none;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            flex-direction: column;
+            text-align: center; /* Center the content */
+        }
+        .image-contents {
+            width: 100%;
+            max-width: 500px;
+            margin: 20px auto; /* Center the image and add some space between images */
+        }
+        .image-contents img {
+            width: 100%;
+            max-width: 500px;
+        }
+
+        /* Center button */
+        #clickButton {
+            display: block;
+            margin: 20px auto; /* Center the button */
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 300px;
+        }
+
+        /* Styled buttons */
+        .modal-content button {
+            margin: 10px;
+            padding: 10px 20px;
+            background-color: #008CBA;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .modal-content button:hover {
+            background-color: #005F6B;
+        }
+
+        /* Styled text */
+        p {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <button id="clickButton" onclick="showModal()">CLICK</button>
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+          <p>How's your day going? I hope you're doing well. Here's a piece of advice for you, <span id="userName"></span>:</p>
+
+            <button onclick="showNextAdvice()">Get advice</button>
+            <button onclick="closeModal()">Close</button>
+        </div>
+    </div>
+
+    <!-- Advice Modal -->
+    <div id="adviceModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeAdviceModal()">&times;</span>
+            <p id="adviceText"></p>
+            <button onclick="showNextAdvice()">Next Advice</button>
+        </div>
+    </div>
+
+    <!-- Final Images -->
+    <div id="finalImages" class="final-image overflow-y-auto  ">
+        <div class="image-contents">
+            <img src="/image/cute-please.gif" alt="Final Image 1">
+        </div>
+        <div class="image-contents">
+            <img src="/image/you-got-this (1).gif" alt="Final Image 2">
+        </div>
+        <div class="image-contents">
+            <img src="/image/nike-tagline-just-do-it-motivation-n67g67cm8a5ac91s.gif" alt="Final Image 3">
+        </div>
+        <div class="image-contents">
+            <img src="/image/200w.gif" alt="Final Image 4">
+        </div>
+        <div class="image-contents">
+            <img src="/image/never.webp" alt="Final Image 5">
+        </div>
+        <div class="image-contents">
+            <H1>I love you so much love laban lang ta</H1>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        var adviceIndex = 0;
+        var advices = [
+            "When facing problems, break them down into manageable steps, focus on what you can control, seek help when needed, and remember that persistence and time often lead to solutions.",
+            "Every challenge is an opportunity in disguise; stay calm, think clearly, and tackle it step by step.",
+            "In the face of adversity, maintain a positive mindset and remember that seeking help is a strength, not a weakness.",
+            "Problems are temporary; with patience, persistence, and a proactive approach, you can overcome anything.",
+            "Believe in yourself and your abilities. You are capable of achieving great things.",
+            "When life gets tough, remind yourself that you have the inner strength to handle any challenge that comes your way.",
+            "View obstacles as opportunities for growth; each problem solved adds to your wisdom and experience.",
+            "Don't be afraid to ask for help or advice when facing challenges; sometimes a different perspective is all you need.",
+            "Remember, every storm runs out of rain; no matter how difficult things seem now, they will get better with time and effort."
+        ];
+
+        function showModal() {
+            var modal = document.getElementById('myModal');
+            var userName = prompt('What is your name?');
+            if (userName && userName.trim() !== '') {
+                document.getElementById('userName').innerText = userName;
+                modal.style.display = "block";
+            } else {
+                alert('Invalid name');
+            }
+        }
+
+        function closeModal() {
+            var modal = document.getElementById('myModal');
+            modal.style.display = "none";
+        }
+
+        function showAdviceModal() {
+            var adviceModal = document.getElementById('adviceModal');
+            var adviceText = document.getElementById('adviceText');
+            closeModal();
+            adviceText.innerText = advices[adviceIndex];
+            adviceModal.style.display = "block";
+        }
+
+        function closeAdviceModal() {
+            var adviceModal = document.getElementById('adviceModal');
+            adviceModal.style.display = "none";
+        }
+
+        function showNextAdvice() {
+            if (adviceIndex < advices.length - 1) {
+                adviceIndex++;
+                showAdviceModal();
+            } else {
+                showFinalImage();
+            }
+        }
+
+        function showFinalImage() {
+            var finalImages = document.getElementById('finalImages');
+            var adviceModal = document.getElementById('adviceModal');
+            var clickButton = document.getElementById('clickButton');
+            adviceModal.style.display = "none";
+            finalImages.style.display = "flex";
+            clickButton.style.display = "none";
+        }
+    </script>
+</body>
+</html>
